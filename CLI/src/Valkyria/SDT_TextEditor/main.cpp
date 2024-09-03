@@ -101,6 +101,10 @@ auto main(void) -> int
 				::Import(sdt_org_path, json_path, save_path, code_page);
 			}
 		}
+		else
+		{
+			std::println("unknown command!");
+		}
 	}
 	catch (const std::exception& err)
 	{

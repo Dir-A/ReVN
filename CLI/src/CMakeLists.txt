@@ -1,1 +1,2 @@
 add_subdirectory(Valkyria)
+add_subdirectory(PJADV)

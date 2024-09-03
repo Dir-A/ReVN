@@ -30,6 +30,10 @@ auto main(void) -> int
 			const auto status = ZQF::RxValkyria::Pack::Import(dir_path, dat_path);
 			status ? std::println("success! -> {}", dir_path) : std::println("error! -> {}", dir_path);
 		}
+		else
+		{
+			std::println("unknown command!");
+		}
 	}
 	catch (const std::exception& err)
 	{
