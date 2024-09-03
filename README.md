@@ -3,7 +3,7 @@
 Visual Novel Engine Reverse Project
 
 ## Library
-please refer to [ZQF-ReVN](https://github.com/ZQF-ReVN).
+[ZQF-ReVN](https://github.com/ZQF-ReVN).
 
 ## Tools
 - [PJADV](WIKI/PJADV)
