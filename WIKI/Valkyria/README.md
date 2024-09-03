@@ -1,10 +1,10 @@
-### Valkyria_SDT_TextEditor
+## Valkyria_SDT_TextEditor
  - export text from `.sdt` to json
  - import text from json to `.sdt`
 > Q: ***Can it be longer than the original text?***  
 > A: yes, but the maximum text buffer size of this engine is 260 bytes.
 
-### Valkyria_DAT_Editor
+## Valkyria_DAT_Editor
  - unpack `.dat`
  - repack `.dat`
 > Q: ***How to make a patch?***  
