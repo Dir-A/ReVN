@@ -3,10 +3,10 @@
 Visual Novel Engine Reverse Project
 
 ## Supported
-- [PJADV](./PJADV)
+- [PJADV](WIKI/PJADV)
   - [x] Pack Editor
   - [x] Text Editor
-- [Valkyria](./Valkyria)
+- [Valkyria](WIKI/Valkyria)
   - [x] Pack Editor
   - [x] Text Editor
   - [x] VFS Hook 
