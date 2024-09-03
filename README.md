@@ -10,4 +10,5 @@ Visual Novel Engine Reverse Project
 - [Valkyria](WIKI/Valkyria)
   - [x] Pack Editor
   - [x] Text Editor
+  - [x] SDT File Signer 
   - [x] VFS Hook 
