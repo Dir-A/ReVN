@@ -2,9 +2,10 @@
 
 Visual Novel Engine Reverse Project
 
-## Supported
+## CLI Supported
 - [PJADV](WIKI/PJADV)
   - [x] Pack Editor
+  - [x] TextData Cryptor
   - [x] Text Editor
 - [Valkyria](WIKI/Valkyria)
   - [x] Pack Editor
