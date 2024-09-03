@@ -9,3 +9,5 @@
 ## PJADV_TextdataDat_Cryptor
 - xor `textdata.bin`
 
+# More
+for more details, please refer to [RxPJADV](https://github.com/ZQF-ReVN/RxPJADV).
