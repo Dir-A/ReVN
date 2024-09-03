@@ -7,6 +7,8 @@
 - import msg text to `textdata.bin`
 
 ## PJADV_TextdataDat_Cryptor
+used to decrypt/encrypt `textdata.bin/dat` file.
+> some old versions do not require decrypt/encrypt
 - xor `textdata.bin`
 
 # More
