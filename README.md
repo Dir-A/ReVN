@@ -2,7 +2,10 @@
 
 Visual Novel Engine Reverse Project
 
-## CLI Supported
+## Library
+please refer to [ZQF-ReVN](https://github.com/ZQF-ReVN).
+
+## Tools
 - [PJADV](WIKI/PJADV)
   - [x] Pack Editor
   - [x] TextData Cryptor
