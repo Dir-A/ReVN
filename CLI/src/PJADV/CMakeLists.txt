@@ -3,7 +3,7 @@ include(FetchContent)
 FetchContent_Declare(
   RxPJADV
   GIT_REPOSITORY https://github.com/ZQF-ReVN/RxPJADV.git
-  GIT_TAG 8f2159b97301b294e9fbd1136ecb7db25c8a11cc)
+  GIT_TAG c15fdf3a56d0e99834dbe0f7f28cd9ab6bd3a86b)
 
 FetchContent_MakeAvailable(RxPJADV)
 
