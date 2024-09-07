@@ -53,3 +53,21 @@ if((CMAKE_SYSTEM_NAME STREQUAL "Windows") AND MSVC)
 endif()
 
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(ZLIB_BUILD_EXAMPLES OFF)
+    FetchContent_Declare(
+        zlib
+        GIT_REPOSITORY https://github.com/madler/zlib.git
+        GIT_TAG v1.3.1)
+
+    FetchContent_MakeAvailable(zlib)
+
+    if(BUILD_SHARED_LIBS)
+        add_library(ZLIB::ZLIB ALIAS zlib)
+    else()
+        add_library(ZLIB::ZLIB ALIAS zlibstatic)
+    endif()
+    
+elseif(UNIX)
+    find_package(ZLIB REQUIRED)
+endif()

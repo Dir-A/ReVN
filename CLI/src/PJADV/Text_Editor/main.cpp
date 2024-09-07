@@ -14,7 +14,7 @@ auto main(void) -> int
 		cmd.AddCmd("-jmsg", "msg json path");
 		cmd.AddCmd("-jseq", "seq json path");
 		cmd.AddCmd("-code", "codepage");
-		cmd.AddCmd("-mode", "mode export | import");
+		cmd.AddCmd("-mode", "mode: export | import");
 		cmd.AddExample("-mode export -text textdata.bin -scen scenario.dat -jmsg scenario_msg.json -jseq scenario_seq.json -code 932");
 		cmd.AddExample("-mode import -text textdata.bin -scen scenario.dat -jmsg scenario_msg.json -jseq scenario_seq.json -code 932");
 		if (cmd.Parse() == false) { return 0; }
