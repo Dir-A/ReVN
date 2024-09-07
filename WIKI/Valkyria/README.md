@@ -1,3 +1,5 @@
+# Tools
+Valkyria's Engine Tools. | .sdt .dat .mg2
 ## Valkyria_SDT_TextEditor
  - export text from `.sdt` to json
  - import text from json to `.sdt`
@@ -14,6 +16,9 @@
 sdt file has a piece of data that is used to verify that the size of the sdt file has been modified.  
 this tool can be used to sign the resized sdt file.  
 **SDT_TextEditor** signed by default, so it doesn't need to be signed again.
+
+# Release
+[Valkyria_Tools_Release](https://github.com/Dir-A/ReVN/releases/tag/Valkyria)
 
 # More
 for more details, please refer to [RxValkyria](https://github.com/ZQF-ReVN/RxValkyria).
