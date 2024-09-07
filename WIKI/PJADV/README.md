@@ -1,3 +1,5 @@
+# Tools
+Valkyria's Engine Tools. | .sdt .dat .mg2
 ## PJADV_Pack_V2_Editor
 - extract `.dat` with `GAMEDAT PAC2` signature
 - pack files to `.dat` with `GAMEDAT PAC2` signature
@@ -10,6 +12,9 @@
 used to decrypt/encrypt `textdata.bin/dat` file.
 > some old versions do not require decrypt/encrypt
 - xor `textdata.bin`
+
+# Release
+[Valkyria_Tools_Release](https://github.com/Dir-A/ReVN/releases/tag/Valkyria)
 
 # More
 for more details, please refer to [RxPJADV](https://github.com/ZQF-ReVN/RxPJADV).
