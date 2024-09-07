@@ -3,7 +3,7 @@ include(FetchContent)
 FetchContent_Declare(
   RxValkyria
   GIT_REPOSITORY https://github.com/ZQF-ReVN/RxValkyria.git
-  GIT_TAG 782611556da98637d785d4e5912bcda0256d55ea)
+  GIT_TAG 6b8da6d42e19fe408c578f02c7247fd05d24092a)
 
 FetchContent_MakeAvailable(RxValkyria)
 

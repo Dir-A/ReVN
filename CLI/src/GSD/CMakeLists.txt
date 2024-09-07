@@ -3,7 +3,7 @@ include(FetchContent)
 FetchContent_Declare(
   RxGSD
   GIT_REPOSITORY https://github.com/ZQF-ReVN/RxGSD.git
-  GIT_TAG eb41a7b1082795415609ee0944307e20e9645dd8)
+  GIT_TAG 98f62fef8f824baaa569320d793080ff0fd54d1a)
 
 FetchContent_MakeAvailable(RxGSD)
 
