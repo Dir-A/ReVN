@@ -40,11 +40,3 @@ Visual Novel Engine Reverse Project
 > cmake --preset=gcc-x64-release-linux
 > cmake --build ./build/gcc-x64-release-linux
 ```
-
-**Clang**  [Linux]
-```shell
-> git clone https://github.com/Dir-A/ReVN.git
-> cd ReVN/CLI
-> cmake --preset=clang-x64-release-linux
-> cmake --build ./build/clang-x64-release-linux
-```
