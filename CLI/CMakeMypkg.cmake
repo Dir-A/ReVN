@@ -38,7 +38,7 @@ FetchContent_MakeAvailable(ZxFS)
 FetchContent_Declare(
   ZxArg
   GIT_REPOSITORY https://github.com/ZQF-Zut/ZxArg.git
-  GIT_TAG 72b1f888efe264506af0c971372710c8c6335246)
+  GIT_TAG aa61c0be45c16e8e5fd722f620d3cf35e33c8ef8)
 
 FetchContent_MakeAvailable(ZxArg)
 
