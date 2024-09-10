@@ -37,6 +37,6 @@ Visual Novel Engine Reverse Project
 ```shell
 > git clone https://github.com/Dir-A/ReVN.git
 > cd ReVN/CLI
-> cmake --preset=gcc-x64-release-linux
-> cmake --build ./build/gcc-x64-release-linux
+> cmake --preset=gcc-x64-release
+> cmake --build ./build/gcc-x64-release
 ```
