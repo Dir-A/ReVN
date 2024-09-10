@@ -22,3 +22,29 @@ Visual Novel Engine Reverse Project
   - [x] Script Text Editor
   - [x] Script Data Signer 
   - [x] VFS Hook 
+
+## Build CLI
+
+**MSVC**  [Windows]
+```shell
+> git clone https://github.com/Dir-A/ReVN.git
+> cd ReVN/CLI
+> cmake --preset=msvc-x64-release
+> cmake --build ./build/msvc-x64-release
+```
+
+**GCC**  [Linux]
+```shell
+> git clone https://github.com/Dir-A/ReVN.git
+> cd ReVN/CLI
+> cmake --preset=gcc-x64-release-linux
+> cmake --build ./build/gcc-x64-release-linux
+```
+
+**Clang**  [Linux]
+```shell
+> git clone https://github.com/Dir-A/ReVN.git
+> cd ReVN/CLI
+> cmake --preset=clang-x64-release-linux
+> cmake --build ./build/clang-x64-release-linux
+```
