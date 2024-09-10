@@ -108,8 +108,8 @@
             }
         },
         {
-            "name": "gcc-x64-debug-linux",
-            "displayName": "GCC x64 Debug Linux",
+            "name": "gcc-x64-debug",
+            "displayName": "GCC x64 Debug",
             "inherits": "linux-gcc-base",
             "architecture": {
                 "value": "x64",
@@ -120,9 +120,9 @@
             }
         },
         {
-            "name": "gcc-x64-release-linux",
-            "displayName": "GCC x64 Release Linux",
-            "inherits": "gcc-x64-debug-linux",
+            "name": "gcc-x64-release",
+            "displayName": "GCC x64 Release",
+            "inherits": "gcc-x64-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
