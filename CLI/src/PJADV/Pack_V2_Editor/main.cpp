@@ -1,29 +1,31 @@
-﻿#include <print>
+#include <print>
 #include <iostream>
-#include <ZxArg/Parser.h>
-#include <RxPJADV/Core/Pack_V2.h>
+#include <Zut/ZxArg.h>
+#include <ReVN/RxPJADV/Core/Pack_V2.h>
+
+namespace RxPJADV { using namespace ZQF::ReVN::RxPJADV; }
 
 
 auto main(void) -> int
 {
 	try
 	{
-		ZQF::ZxArg::Parser arg;
-		arg.AddCmd("-dat", ".dat file path");
-		arg.AddCmd("-dir", "dir path");
-		arg.AddCmd("-mode", "mode: unpack | repack");
+		ZxArg::Parser arg;
+		arg.AddOption("-dat", ".dat file path");
+		arg.AddOption("-dir", "dir path");
+		arg.AddOption("-mode", "mode: unpack | repack");
 		arg.AddExample("-mode unpack -dat archive.dat -dir archive/ ");
 		arg.AddExample("-mode repack -dir archive/ -dat archive.dat ");
 		if (arg.Parse() == false) { return 0; }
 
 		if (arg["-mode"].Get<std::string_view>() == "unpack")
 		{
-			ZQF::RxPJADV::PackV2::Export(arg["-dat"].Get<std::string_view>(), arg["-dir"].Get<std::string_view>());
+			RxPJADV::PackV2::Export(arg["-dat"].Get<std::string_view>(), arg["-dir"].Get<std::string_view>());
 			std::println("unpack done!");
 		}
 		else if (arg["-mode"].Get<std::string_view>() == "repack")
 		{
-			ZQF::RxPJADV::PackV2::Import(arg["-dir"].Get<std::string_view>(), arg["-dat"].Get<std::string_view>());
+			RxPJADV::PackV2::Import(arg["-dir"].Get<std::string_view>(), arg["-dat"].Get<std::string_view>());
 			std::println("repack done!");
 		}
 		else

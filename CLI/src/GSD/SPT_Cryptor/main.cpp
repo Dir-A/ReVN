@@ -1,21 +1,23 @@
-﻿#include <print>
+#include <print>
 #include <iostream>
-#include <ZxArg/Parser.h>
-#include <ZxMem/ZxMem.h>
-#include <ZxFS/Walker.h>
-#include <RxGSD/Core/SPT_Cryptor.h>
+#include <Zut/ZxArg.h>
+#include <Zut/ZxFS.h>
+#include <Zut/ZxMem.h>
+#include <ReVN/RxGSD/Core/SPT_Cryptor.h>
+
+namespace RxGSD { using namespace ZQF::ReVN::RxGSD; }
 
 
 auto main(void) -> int
 {
 	try
 	{
-		ZQF::ZxArg::Parser arg;
-		arg.AddCmd("-spt", "spt file path");
-		arg.AddCmd("-dir", "spt dir path");
-		arg.AddCmd("-save", "save path");
-		arg.AddCmd("-able", "enable the engine to read unencrypted spt files.");
-		arg.AddCmd("-mode", "mode: single | batch");
+		ZxArg::Parser arg;
+		arg.AddOption("-spt", "spt file path");
+		arg.AddOption("-dir", "spt dir path");
+		arg.AddOption("-save", "save path");
+		arg.AddOption("-able", "enable the engine to read unencrypted spt files.");
+		arg.AddOption("-mode", "mode: single | batch");
 		arg.AddExample("-mode single -able true -spt 0scene_pro001.spt -save 0scene_pro001.spt.dec");
 		arg.AddExample("-mode batch -able true -dir spt/ -save spt_dec/");
 		if (arg.Parse() == false) { return 0; }
@@ -24,8 +26,8 @@ auto main(void) -> int
 
 		if (mode == "single")
 		{
-			ZQF::ZxMem spt_file{ arg["-spt"].Get<std::string_view>() };
-			ZQF::RxGSD::SPT::Cryptor::Decode(spt_file.Span(), arg["-able"].Get<bool>());
+			ZxMem spt_file{ arg["-spt"].Get<std::string_view>() };
+			RxGSD::SPT::Cryptor::Decode(spt_file.Span(), arg["-able"].Get<bool>());
 			spt_file.Save(arg["-save"].Get<std::string_view>());
 			std::println("cryptor done!");
 		}
@@ -33,10 +35,10 @@ auto main(void) -> int
 		{
 			const auto is_readbale{ arg["-able"].Get<bool>() };
 			const auto save_path{ arg["-save"].Get<std::string_view>() };
-			for (ZQF::ZxFS::Walker walker{ arg["-dir"].Get<std::string_view>() }; walker.NextFile();)
+			for (ZxFS::Walker walker{ arg["-dir"].Get<std::string_view>() }; walker.NextFile();)
 			{
-				ZQF::ZxMem spt_file{ walker.GetPath() };
-				ZQF::RxGSD::SPT::Cryptor::Decode(spt_file.Span(), is_readbale);
+				ZxMem spt_file{ walker.GetPath() };
+				RxGSD::SPT::Cryptor::Decode(spt_file.Span(), is_readbale);
 				spt_file.Save(std::string{ save_path }.append(walker.GetName()));
 				std::println("cryptor -> {}", walker.GetPath());
 			}

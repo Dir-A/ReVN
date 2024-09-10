@@ -1,25 +1,27 @@
-﻿#include <print>
+#include <print>
 #include <iostream>
-#include <ZxArg/Parser.h>
-#include <ZxMem/ZxMem.h>
-#include <ZxFS/Core.h>
-#include <ZxFS/Walker.h>
-#include <ZxJson/JIO.h>
-#include <RxGSD/Core/SPT_File.h>
-#include <RxGSD/Core/SPT_Global.h>
+#include <Zut/ZxFS.h>
+#include <Zut/ZxArg.h>
+#include <Zut/ZxMem.h>
+#include <Zut/ZxJson.h>
+#include <Zut/ZxCvt.h>
+#include <ReVN/RxGSD/Core/SPT_File.h>
+#include <ReVN/RxGSD/Core/SPT_Global.h>
+
+namespace RxGSD { using namespace ZQF::ReVN::RxGSD; }
 
 
 static auto Export(const std::vector<std::string>& vcName, const std::string_view msSptPath, const std::string_view msJsonPath, const std::size_t nCodePage) -> bool
 {
-	ZQF::RxGSD::SPT::File spt{ msSptPath };
+	RxGSD::SPT::File spt{ msSptPath };
 
-	ZQF::ZxCvt cvt;
-	ZQF::ZxJson::JArray_t msg_json;
+	ZxCvt cvt;
+	ZxJson::JArray_t msg_json;
 	for (auto& code : spt.GetCodeList())
 	{
 		if (code.GetArgType0().GetType0TextLen() == 0) { continue; };
 
-		ZQF::ZxJson::JValue msg_obj;
+		ZxJson::JValue msg_obj;
 
 		const auto char_name_seq{ code.GetArgType0().GetNameSeq() };
 		if (char_name_seq != static_cast<std::uint32_t>(-1))
@@ -40,7 +42,7 @@ static auto Export(const std::vector<std::string>& vcName, const std::string_vie
 		return false;
 	}
 
-	ZQF::ZxJson::StoreViaFile(msJsonPath, ZQF::ZxJson::JValue{ std::move(msg_json) }, true, true);
+	ZxJson::StoreViaFile(msJsonPath, ZxJson::JValue{ std::move(msg_json) }, true, true);
 	std::println("export -> {}", msSptPath);
 
 	return true;
@@ -48,12 +50,12 @@ static auto Export(const std::vector<std::string>& vcName, const std::string_vie
 
 static auto Import(const std::string_view msSptPath, const std::string_view msJsonPath, const std::string_view msSptNewPath, const std::size_t nCodePage) -> bool
 {
-	ZQF::RxGSD::SPT::File spt{ msSptPath };
+	RxGSD::SPT::File spt{ msSptPath };
 
-	const auto msg_json_doc{ ZQF::ZxJson::LoadViaFile(msJsonPath) };
+	const auto msg_json_doc{ ZxJson::LoadViaFile(msJsonPath) };
 	const auto& msg_vec{ msg_json_doc.GetArray() };
 
-	ZQF::ZxCvt cvt;
+	ZxCvt cvt;
 	std::size_t msg_idx{};
 	for (auto& code : spt.GetCodeList())
 	{
@@ -88,14 +90,14 @@ auto main(void) -> int
 {
 	try
 	{
-		ZQF::ZxArg::Parser arg;
-		arg.AddCmd("-spt", "spt file path");
-		arg.AddCmd("-new", "new spt file path");
-		arg.AddCmd("-txt", "json file path");
-		arg.AddCmd("-global", "global.dat file path");
-		arg.AddCmd("-code", "codepage");
-		arg.AddCmd("-mode", "mode: single | batch");
-		arg.AddCmd("-way", "way: export | import");
+		ZxArg::Parser arg;
+		arg.AddOption("-spt", "spt file path");
+		arg.AddOption("-new", "new spt file path");
+		arg.AddOption("-txt", "json file path");
+		arg.AddOption("-global", "global.dat file path");
+		arg.AddOption("-code", "codepage");
+		arg.AddOption("-mode", "mode: single | batch");
+		arg.AddOption("-way", "way: export | import");
 		arg.AddExample("-mode single -way export -global global.dat -spt 0scene_pro001.spt -txt 0scene_pro001.json -code 932");
 		arg.AddExample("-mode single -way import -global global.dat -spt 0scene_pro001.spt -txt 0scene_pro001.json -new 0scene_pro001.spt.new -code 932");
 		arg.AddExample("-mode batch -way export -global global.dat -spt spt/ -txt spt_txt/ -code 932");
@@ -107,7 +109,7 @@ auto main(void) -> int
 		const auto code_page{ arg["-code"].Get<std::size_t>() };
 		
 
-		ZQF::RxGSD::SPT::Global global;
+		RxGSD::SPT::Global global;
 		global.Load(arg["-global"].Get<std::string_view>());
 		std::vector<std::string> name_list{ global.GetStrTable(code_page) };
 
@@ -134,11 +136,11 @@ auto main(void) -> int
 
 			if (way == "export")
 			{
-				ZQF::ZxFS::DirMake(json_dir, true);
-				for (ZQF::ZxFS::Walker walker{ spt_dir }; walker.NextFile();)
+				ZxFS::DirMake(json_dir, true);
+				for (ZxFS::Walker walker{ spt_dir }; walker.NextFile();)
 				{
 					if (walker.IsSuffix(".spt") == false) { continue; }
-					const auto json_file_path{ std::string{json_dir}.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".json") };
+					const auto json_file_path{ std::string{json_dir}.append(ZxFS::FileNameStem(walker.GetName())).append(".json") };
 					::Export(name_list, walker.GetPath(), json_file_path, code_page);
 				}
 				return 0;
@@ -146,12 +148,12 @@ auto main(void) -> int
 			else if (way == "import")
 			{
 				const auto spt_new_folder{ arg["-new"].Get<std::string_view>() };
-				ZQF::ZxFS::DirMake(spt_new_folder, true);;
-				for (ZQF::ZxFS::Walker walker{ json_dir }; walker.NextFile();)
+				ZxFS::DirMake(spt_new_folder, true);;
+				for (ZxFS::Walker walker{ json_dir }; walker.NextFile();)
 				{
 					if (walker.IsSuffix(".json") == false) { continue; }
-					const auto spt_file_path{ std::string{ spt_dir }.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".spt") };
-					const auto spt_file_save_path{ std::string{ spt_new_folder }.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".spt") };
+					const auto spt_file_path{ std::string{ spt_dir }.append(ZxFS::FileNameStem(walker.GetName())).append(".spt") };
+					const auto spt_file_save_path{ std::string{ spt_new_folder }.append(ZxFS::FileNameStem(walker.GetName())).append(".spt") };
 					::Import(spt_file_path, walker.GetPath(), spt_file_save_path, code_page);
 				}
 				return 0;

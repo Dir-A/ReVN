@@ -1,14 +1,15 @@
-﻿#include <print>
+#include <print>
 #include <iostream>
-#include <ZxFS/Core.h>
-#include <ZxFS/Walker.h>
-#include <ZxArg/Parser.h>
-#include <RxValkyria/Core/SDT_TextParser.h>
+#include <Zut/ZxFS.h>
+#include <Zut/ZxArg.h>
+#include <ReVN/RxValkyria/Core/SDT_TextParser.h>
+
+namespace RxValkyria { using namespace ZQF::ReVN::RxValkyria; }
 
 
 static auto Export(const std::string_view msSdtPath, const std::string_view msSavePath, const std::size_t nCodePage) -> void
 {
-	ZQF::RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
+	RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
 	if (text_parser.Parse())
 	{
 		text_parser.Export(msSavePath, nCodePage);
@@ -22,7 +23,7 @@ static auto Export(const std::string_view msSdtPath, const std::string_view msSa
 
 static auto Import(const std::string_view msSdtPath, const std::string_view msJsonPath, const std::string_view msNewSdtPath, const std::size_t nCodePage) -> void
 {
-	ZQF::RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
+	RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
 	if (text_parser.Parse())
 	{
 		text_parser.Import(msNewSdtPath, msJsonPath, nCodePage);
@@ -39,13 +40,13 @@ auto main(void) -> int
 {
 	try
 	{
-		ZQF::ZxArg::Parser arg;
-		arg.AddCmd("-sdt", "sdt org path");
-		arg.AddCmd("-sav", "sdt sav path");
-		arg.AddCmd("-json", "json path");
-		arg.AddCmd("-mode", "mode: single | batch");
-		arg.AddCmd("-way", "way: export | import");
-		arg.AddCmd("-code", "code page");
+		ZxArg::Parser arg;
+		arg.AddOption("-sdt", "sdt org path");
+		arg.AddOption("-sav", "sdt sav path");
+		arg.AddOption("-json", "json path");
+		arg.AddOption("-mode", "mode: single | batch");
+		arg.AddOption("-way", "way: export | import");
+		arg.AddOption("-code", "code page");
 		arg.AddExample("-mode batch -way export -sdt sdt/ -json sdt_json/ -code 932");
 		arg.AddExample("-mode batch -way import -sdt sdt/ -json sdt_json/ -sav sdt_new/ -code 936");
 		arg.AddExample("-mode single -way export -sdt seen1100.sdt -json seen1100.json -code 932");
@@ -63,11 +64,11 @@ auto main(void) -> int
 
 			if (way == "export")
 			{
-				ZQF::ZxFS::DirMake(sdt_json_dir, true);
-				for (ZQF::ZxFS::Walker walker{ sdt_org_dir }; walker.NextFile(); )
+				ZxFS::DirMake(sdt_json_dir, true);
+				for (ZxFS::Walker walker{ sdt_org_dir }; walker.NextFile(); )
 				{
 					const std::string_view org_path{ walker.GetPath() };
-					const std::string sav_path{ std::string{ sdt_json_dir }.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".json") };
+					const std::string sav_path{ std::string{ sdt_json_dir }.append(ZxFS::FileNameStem(walker.GetName())).append(".json") };
 					::Export(org_path, sav_path, code_page);
 					
 				}
@@ -76,12 +77,12 @@ auto main(void) -> int
 			{
 				const auto sdt_sav_dir{ arg["-sav"].Get<std::string_view>() };
 
-				ZQF::ZxFS::DirMake(sdt_sav_dir, true);
-				for (ZQF::ZxFS::Walker walker{ sdt_json_dir }; walker.NextFile(); )
+				ZxFS::DirMake(sdt_sav_dir, true);
+				for (ZxFS::Walker walker{ sdt_json_dir }; walker.NextFile(); )
 				{
 					const std::string_view json_path{ walker.GetPath() };
-					const std::string org_path{ std::string{ sdt_org_dir }.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".sdt") };
-					const std::string sav_path{ std::string{ sdt_sav_dir }.append(ZQF::ZxFS::FileNameStem(walker.GetName())).append(".sdt") };
+					const std::string org_path{ std::string{ sdt_org_dir }.append(ZxFS::FileNameStem(walker.GetName())).append(".sdt") };
+					const std::string sav_path{ std::string{ sdt_sav_dir }.append(ZxFS::FileNameStem(walker.GetName())).append(".sdt") };
 					::Import(org_path, json_path, sav_path, code_page);
 				}
 			}

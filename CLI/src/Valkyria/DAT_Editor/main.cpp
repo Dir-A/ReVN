@@ -1,17 +1,19 @@
-﻿#include <print>
+#include <print>
 #include <iostream>
-#include <ZxArg/Parser.h>
-#include <RxValkyria/Core/Pack.h>
+#include <Zut/ZxArg.h>
+#include <ReVN/RxValkyria/Core/Pack.h>
+
+namespace RxValkyria { using namespace ZQF::ReVN::RxValkyria; }
 
 
 auto main(void) -> int
 {
 	try
 	{
-		ZQF::ZxArg::Parser arg;
-		arg.AddCmd("-dat", "dat path");
-		arg.AddCmd("-dir", "files dir");
-		arg.AddCmd("-mode", "mode: unpack | repack");
+		ZxArg::Parser arg;
+		arg.AddOption("-dat", "dat path");
+		arg.AddOption("-dir", "files dir");
+		arg.AddOption("-mode", "mode: unpack | repack");
 		arg.AddExample("-mode unpack -dat data06-00.dat -dir data06/");
 		arg.AddExample("-mode repack -dir data06/ -dat data06-01.dat");
 		if (arg.Parse() == false) { return 0; }
@@ -22,12 +24,12 @@ auto main(void) -> int
 
 		if (mode == "unpack")
 		{
-			const auto status = ZQF::RxValkyria::Pack::Export(dat_path, dir_path);
+			const auto status = RxValkyria::Pack::Export(dat_path, dir_path);
 			status ? std::println("success! -> {}", dat_path) : std::println("error! -> {}", dat_path);
 		}
 		else if (mode == "repack")
 		{
-			const auto status = ZQF::RxValkyria::Pack::Import(dir_path, dat_path);
+			const auto status = RxValkyria::Pack::Import(dir_path, dat_path);
 			status ? std::println("success! -> {}", dir_path) : std::println("error! -> {}", dir_path);
 		}
 		else
