@@ -14,7 +14,7 @@ used to decrypt/encrypt `textdata.bin/dat` file.
 - xor `textdata.bin`
 
 # Release
-[PJADV_Tools_Release](https://github.com/Dir-A/ReVN/releases/tag/PJADV)
+[Release](https://github.com/Dir-A/ReVN/releases/)
 
 # More
 for more details, please refer to [RxPJADV](https://github.com/ZQF-ReVN/RxPJADV).
