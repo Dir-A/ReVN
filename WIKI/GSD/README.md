@@ -21,7 +21,7 @@ Tools For Atelier Sakura's GSD Engine. Filename Extension `.gsp` `.spt` `.bmz`
 - import msg text to `.spt`
 
 # Release
-[GSD_Tools_Release](https://github.com/Dir-A/ReVN/releases/tag/GSD)
+[Release](https://github.com/Dir-A/ReVN/releases/)
 
 # More
 for more details, please refer to [RxGSD](https://github.com/ZQF-ReVN/RxGSD).
