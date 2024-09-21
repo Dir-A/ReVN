@@ -18,7 +18,7 @@ this tool can be used to sign the resized sdt file.
 **SDT_TextEditor** signed by default, so it doesn't need to be signed again.
 
 # Release
-[Valkyria_Tools_Release](https://github.com/Dir-A/ReVN/releases/tag/Valkyria)
+[Release](https://github.com/Dir-A/ReVN/releases/)
 
 # More
 for more details, please refer to [RxValkyria](https://github.com/ZQF-ReVN/RxValkyria).
