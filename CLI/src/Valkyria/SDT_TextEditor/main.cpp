@@ -70,7 +70,6 @@ auto main(void) -> int
 					const std::string_view org_path{ walker.GetPath() };
 					const std::string sav_path{ std::string{ sdt_json_dir }.append(ZxFS::FileNameStem(walker.GetName())).append(".json") };
 					::Export(org_path, sav_path, code_page);
-					
 				}
 			}
 			else if (way == "import")
@@ -86,6 +85,8 @@ auto main(void) -> int
 					::Import(org_path, json_path, sav_path, code_page);
 				}
 			}
+
+            std::println("batch command done!");
 		}
 		else if (mode == "single")
 		{
@@ -101,6 +102,8 @@ auto main(void) -> int
 				const auto json_path{ arg["-json"].Get<std::string_view>() };
 				::Import(sdt_org_path, json_path, save_path, code_page);
 			}
+
+            std::println("single command done!");
 		}
 		else
 		{
