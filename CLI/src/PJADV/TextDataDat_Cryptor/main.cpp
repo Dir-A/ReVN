@@ -17,9 +17,9 @@ auto main(void) -> int
 		arg.AddExample("-bin textdata.bin -save textdata.bin.dec");
 		if (arg.Parse() == false) { return 0; }
 
-		ZxMem text_data_mem{ arg["-bin"].Get<std::string_view>() };
+		ZxMem text_data_mem{ arg["-bin"].GetStrView() };
 		RxPJADV::Script::TextDataDat::XorBytes(text_data_mem.Span(), 0xC5);
-		text_data_mem.Save(arg["-save"].Get<std::string_view>());
+		text_data_mem.Save(arg["-save"].GetStrView());
 
 		std::println("cryptor done!");
 	}

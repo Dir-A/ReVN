@@ -18,9 +18,9 @@ auto main(void) -> int
 		arg.AddExample("-mode repack -dir data06/ -dat data06-01.dat");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
-		const auto dat_path{ arg["-dat"].Get<std::string_view>() };
-		const auto dir_path{ arg["-dir"].Get<std::string_view>() };
+		const auto mode{ arg["-mode"].GetStrView() };
+		const auto dat_path{ arg["-dat"].GetStrView() };
+		const auto dir_path{ arg["-dir"].GetStrView() };
 
 		if (mode == "unpack")
 		{

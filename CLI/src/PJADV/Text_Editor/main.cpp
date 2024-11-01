@@ -21,14 +21,14 @@ auto main(void) -> int
 		cmd.AddExample("-mode import -text textdata.bin -scen scenario.dat -jmsg scenario_msg.json -jseq scenario_seq.json -code 932");
 		if (cmd.Parse() == false) { return 0; }
 
-		if (cmd["-mode"].Get<std::string_view>() == "export")
+		if (cmd["-mode"].GetStrView() == "export")
 		{
-			RxPJADV::Script::TextManager::Export(cmd["-text"].Get<std::string_view>(), cmd["-scen"].Get<std::string_view>(), cmd["-jmsg"].Get<std::string_view>(), cmd["-jseq"].Get<std::string_view>(), cmd["-code"].Get<std::size_t>());
+			RxPJADV::Script::TextManager::Export(cmd["-text"].GetStrView(), cmd["-scen"].GetStrView(), cmd["-jmsg"].GetStrView(), cmd["-jseq"].GetStrView(), cmd["-code"].GetNum());
 			std::println("export done!");
 		}
-		else if (cmd["-mode"].Get<std::string_view>() == "import")
+		else if (cmd["-mode"].GetStrView() == "import")
 		{
-			RxPJADV::Script::TextManager::Import(cmd["-text"].Get<std::string_view>(), cmd["-scen"].Get<std::string_view>(), cmd["-jmsg"].Get<std::string_view>(), cmd["-jseq"].Get<std::string_view>(), cmd["-code"].Get<std::size_t>());
+			RxPJADV::Script::TextManager::Import(cmd["-text"].GetStrView(), cmd["-scen"].GetStrView(), cmd["-jmsg"].GetStrView(), cmd["-jseq"].GetStrView(), cmd["-code"].GetNum());
 			std::println("import done!");
 		}
 		else

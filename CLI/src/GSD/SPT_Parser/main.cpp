@@ -43,28 +43,28 @@ auto main(void) -> int
 		arg.AddExample("-mode batch -way json2spt -dir spt_json/ -spt spt_new/ -code 932");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
-		const auto way{ arg["-way"].Get<std::string_view>() };
-		const auto code_page{ arg["-code"].Get<std::size_t>() };
+		const auto mode{ arg["-mode"].GetStrView() };
+		const auto way{ arg["-way"].GetStrView() };
+		const auto code_page{ arg["-code"].GetNum() };
 
 		if (mode == "single")
 		{
 			if (way == "spt2json")
 			{
-				::SptToJson(arg["-spt"].Get<std::string_view>(), arg["-json"].Get<std::string_view>(), code_page);
+				::SptToJson(arg["-spt"].GetStrView(), arg["-json"].GetStrView(), code_page);
 			}
 			else if (way == "json2spt")
 			{
-				::JsonToSpt(arg["-json"].Get<std::string_view>(), arg["-spt"].Get<std::string_view>(), code_page);
+				::JsonToSpt(arg["-json"].GetStrView(), arg["-spt"].GetStrView(), code_page);
 			}
 		}
 		else if (mode == "batch")
 		{
 			if (way == "spt2json")
 			{
-				const auto spt_dir{ arg["-dir"].Get<std::string_view>() };
-				const auto save_dir{ arg["-json"].Get<std::string_view>() };
-				ZxFS::DirMake(save_dir, true);
+				const auto spt_dir{ arg["-dir"].GetStrView() };
+				const auto save_dir{ arg["-json"].GetStrView() };
+				ZxFS::DirMakeRecursive(save_dir);
 				for (ZxFS::Walker spt_walk{ spt_dir }; spt_walk.NextFile();)
 				{
 					if (spt_walk.IsSuffix(".spt") == false) { continue; }
@@ -74,9 +74,9 @@ auto main(void) -> int
 			}
 			else if (way == "json2spt")
 			{
-				const auto json_dir{ arg["-dir"].Get<std::string_view>() };
-				const auto save_dir{ arg["-spt"].Get<std::string_view>() };
-				ZxFS::DirMake(save_dir, true);
+				const auto json_dir{ arg["-dir"].GetStrView() };
+				const auto save_dir{ arg["-spt"].GetStrView() };
+				ZxFS::DirMakeRecursive(save_dir);
 				for (ZxFS::Walker json_walk{ json_dir }; json_walk.NextFile();)
 				{
 					if (json_walk.IsSuffix(".json") == false) { continue; }

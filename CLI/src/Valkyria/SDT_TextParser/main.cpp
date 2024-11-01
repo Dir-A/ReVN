@@ -7,32 +7,34 @@
 namespace RxValkyria { using namespace ZQF::ReVN::RxValkyria; }
 
 
-static auto Export(const std::string_view msSdtPath, const std::string_view msSavePath, const std::size_t nCodePage) -> void
+static auto Export(const std::string_view msSdtPath, const std::string_view msSavePath, const std::size_t nCodePage) -> bool
 {
-	RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
-	if (text_parser.Parse())
-	{
-		text_parser.Export(msSavePath, nCodePage);
-		std::println("export -> {} | sav -> {}", msSdtPath, msSavePath);
-	}
-	else
-	{
-		std::println("export -> {} | not find text", msSdtPath);
-	}
+    RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
+    if (text_parser.Parse() == false)
+    {
+        std::println("export -> {} | not find text", msSdtPath);
+        return false;
+    }
+
+    text_parser.Export(msSavePath, nCodePage);
+
+    std::println("export -> {} | sav -> {}", msSdtPath, msSavePath);
+    return true;
 }
 
-static auto Import(const std::string_view msSdtPath, const std::string_view msJsonPath, const std::string_view msNewSdtPath, const std::size_t nCodePage) -> void
+static auto Import(const std::string_view msSdtPath, const std::string_view msJsonPath, const std::string_view msNewSdtPath, const std::size_t nCodePage) -> bool
 {
-	RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
-	if (text_parser.Parse())
-	{
-		text_parser.Import(msNewSdtPath, msJsonPath, nCodePage);
-		std::println("import -> {} | json -> {} | sav -> {}", msSdtPath, msJsonPath, msNewSdtPath);
-	}
-	else
-	{
-		std::println("import -> {} | json -> {} | not find text", msSdtPath, msJsonPath);
-	}
+    RxValkyria::SDT::TextParserJsonManager text_parser{ msSdtPath };
+    if (text_parser.Parse() == false)
+    {
+        std::println("import -> {} | not find text", msSdtPath);
+        return false;
+    }
+
+    text_parser.Import(msNewSdtPath, msJsonPath, nCodePage);
+
+    std::println("import -> {} | json -> {} | sav -> {}", msSdtPath, msJsonPath, msNewSdtPath);
+    return true;
 }
 
 

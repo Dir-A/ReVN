@@ -22,20 +22,20 @@ auto main(void) -> int
 		arg.AddExample("-mode batch -able true -dir spt/ -save spt_dec/");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
+		const auto mode{ arg["-mode"].GetStrView() };
 
 		if (mode == "single")
 		{
-			ZxMem spt_file{ arg["-spt"].Get<std::string_view>() };
-			RxGSD::SPT::Cryptor::Decode(spt_file.Span(), arg["-able"].Get<bool>());
-			spt_file.Save(arg["-save"].Get<std::string_view>());
+			ZxMem spt_file{ arg["-spt"].GetStrView() };
+			RxGSD::SPT::Cryptor::Decode(spt_file.Span(), arg["-able"].GetBool());
+			spt_file.Save(arg["-save"].GetStrView());
 			std::println("cryptor done!");
 		}
 		else if (mode == "batch")
 		{
-			const auto is_readbale{ arg["-able"].Get<bool>() };
-			const auto save_path{ arg["-save"].Get<std::string_view>() };
-			for (ZxFS::Walker walker{ arg["-dir"].Get<std::string_view>() }; walker.NextFile();)
+			const auto is_readbale{ arg["-able"].GetBool() };
+			const auto save_path{ arg["-save"].GetStrView() };
+			for (ZxFS::Walker walker{ arg["-dir"].GetStrView() }; walker.NextFile();)
 			{
 				ZxMem spt_file{ walker.GetPath() };
 				RxGSD::SPT::Cryptor::Decode(spt_file.Span(), is_readbale);

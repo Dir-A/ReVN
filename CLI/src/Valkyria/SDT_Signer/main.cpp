@@ -20,10 +20,10 @@ auto main(void) -> int
 		arg.AddExample("-key VAL-0064 -len 0x20 -dir data06/ -sav data06_sig/");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto game_key_str = arg["-key"].Get<std::string_view>();
-		const auto game_title_len = arg["-len"].Get<std::size_t>();
-		const auto sdt_org_dir = arg["-dir"].Get<std::string_view>();
-		const auto sdt_sav_dir = arg["-sav"].Get<std::string_view>();
+		const auto game_key_str = arg["-key"].GetStrView();
+		const auto game_title_len = arg["-len"].GetNum();
+		const auto sdt_org_dir = arg["-dir"].GetStrView();
+		const auto sdt_sav_dir = arg["-sav"].GetStrView();
 
 		//const auto key = "VAL-0064";
 		//const auto len = 0x20;
@@ -31,7 +31,7 @@ auto main(void) -> int
 		//const auto sav_path = "data06_sig/";
 
 		ZxMem cache;
-		ZxFS::DirMake(sdt_sav_dir, true);
+		ZxFS::DirMakeRecursive(sdt_sav_dir);
 		RxValkyria::SDT::Signer signer{ game_key_str, game_title_len };
 		for (ZxFS::Walker walker{ sdt_org_dir }; walker.NextFile(); )
 		{

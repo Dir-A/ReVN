@@ -18,14 +18,14 @@ auto main(void) -> int
 		arg.AddExample("-mode repack -dir archive/ -dat archive.dat ");
 		if (arg.Parse() == false) { return 0; }
 
-		if (arg["-mode"].Get<std::string_view>() == "unpack")
+		if (arg["-mode"].GetStrView() == "unpack")
 		{
-			RxPJADV::PackV2::Export(arg["-dat"].Get<std::string_view>(), arg["-dir"].Get<std::string_view>());
+			RxPJADV::PackV2::Export(arg["-dat"].GetStrView(), arg["-dir"].GetStrView());
 			std::println("unpack done!");
 		}
-		else if (arg["-mode"].Get<std::string_view>() == "repack")
+		else if (arg["-mode"].GetStrView() == "repack")
 		{
-			RxPJADV::PackV2::Import(arg["-dir"].Get<std::string_view>(), arg["-dat"].Get<std::string_view>());
+			RxPJADV::PackV2::Import(arg["-dir"].GetStrView(), arg["-dat"].GetStrView());
 			std::println("repack done!");
 		}
 		else

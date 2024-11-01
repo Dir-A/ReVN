@@ -19,16 +19,16 @@ auto main(void) -> int
 		arg.AddExample("-mode bmp2bmz -bmz im106.bmz -bmp im106.bmp -new im106.bmz.new");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
+		const auto mode{ arg["-mode"].GetStrView() };
 
 		if (mode == "bmz2bmp")
 		{
-			RxGSD::BMZ::Export(arg["-bmz"].Get<std::string_view>(), arg["-bmp"].Get<std::string_view>());
+			RxGSD::BMZ::Export(arg["-bmz"].GetStrView(), arg["-bmp"].GetStrView());
 			std::println("bmz2bmp done!");
 		}
 		else if (mode == "bmp2bmz")
 		{
-			RxGSD::BMZ::Import(arg["-bmz"].Get<std::string_view>(), arg["-bmp"].Get<std::string_view>(), arg["-new"].Get<std::string_view>());
+			RxGSD::BMZ::Import(arg["-bmz"].GetStrView(), arg["-bmp"].GetStrView(), arg["-new"].GetStrView());
 			std::println("bmp2bmz done!");
 		}
 		else

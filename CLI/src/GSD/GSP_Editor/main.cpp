@@ -18,16 +18,16 @@ auto main(void) -> int
 		arg.AddExample("-mode repack -dir data/ -gsp data.gsp.new");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
+		const auto mode{ arg["-mode"].GetStrView() };
 
 		if (mode == "unpack")
 		{
-			RxGSD::GSP::Export(arg["-gsp"].Get<std::string_view>(), arg["-dir"].Get<std::string_view>());
+			RxGSD::GSP::Export(arg["-gsp"].GetStrView(), arg["-dir"].GetStrView());
 			std::println("unpack done!");
 		}
 		else if (mode == "repack")
 		{
-			RxGSD::GSP::Import(arg["-dir"].Get<std::string_view>(), arg["-gsp"].Get<std::string_view>());
+			RxGSD::GSP::Import(arg["-dir"].GetStrView(), arg["-gsp"].GetStrView());
 			std::println("repack done!");
 		}
 		else

@@ -104,19 +104,19 @@ auto main(void) -> int
 		arg.AddExample("-mode batch -way import -global global.dat -spt spt/ -txt spt_txt/ -new spt_new/ -code 932");
 		if (arg.Parse() == false) { return 0; }
 
-		const auto mode{ arg["-mode"].Get<std::string_view>() };
-		const auto way{ arg["-way"].Get<std::string_view>() };
-		const auto code_page{ arg["-code"].Get<std::size_t>() };
+		const auto mode{ arg["-mode"].GetStrView() };
+		const auto way{ arg["-way"].GetStrView() };
+		const auto code_page{ arg["-code"].GetNum() };
 		
 
 		RxGSD::SPT::Global global;
-		global.Load(arg["-global"].Get<std::string_view>());
+		global.Load(arg["-global"].GetStrView());
 		std::vector<std::string> name_list{ global.GetStrTable(code_page) };
 
 		if (mode == "single")
 		{
-			const auto spt_path{ arg["-spt"].Get<std::string_view>() };
-			const auto json_path{ arg["-txt"].Get<std::string_view>() };
+			const auto spt_path{ arg["-spt"].GetStrView() };
+			const auto json_path{ arg["-txt"].GetStrView() };
 
 			if (way == "export")
 			{
@@ -125,18 +125,18 @@ auto main(void) -> int
 			}
 			else if (way == "import")
 			{
-				::Import(spt_path, json_path, arg["-new"].Get<std::string_view>(), code_page);
+				::Import(spt_path, json_path, arg["-new"].GetStrView(), code_page);
 				return 0;
 			}
 		}
 		else if (mode == "batch")
 		{
-			const auto spt_dir{ arg["-spt"].Get<std::string_view>() };
-			const auto json_dir{ arg["-txt"].Get<std::string_view>() };
+			const auto spt_dir{ arg["-spt"].GetStrView() };
+			const auto json_dir{ arg["-txt"].GetStrView() };
 
 			if (way == "export")
 			{
-				ZxFS::DirMake(json_dir, true);
+				ZxFS::DirMakeRecursive(json_dir);
 				for (ZxFS::Walker walker{ spt_dir }; walker.NextFile();)
 				{
 					if (walker.IsSuffix(".spt") == false) { continue; }
@@ -147,8 +147,8 @@ auto main(void) -> int
 			}
 			else if (way == "import")
 			{
-				const auto spt_new_folder{ arg["-new"].Get<std::string_view>() };
-				ZxFS::DirMake(spt_new_folder, true);;
+				const auto spt_new_folder{ arg["-new"].GetStrView() };
+				ZxFS::DirMakeRecursive(spt_new_folder);;
 				for (ZxFS::Walker walker{ json_dir }; walker.NextFile();)
 				{
 					if (walker.IsSuffix(".json") == false) { continue; }
